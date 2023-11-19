@@ -179,7 +179,7 @@
     async function fetchWeatherData() {
       try {
         let res = await axios.get(
-          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?unitGroup=metric&key=HKQEKXGN484MCGGWXWHVV2UJP&contentType=json&lang=ru",
+          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/minsk?unitGroup=metric&key=HKQEKXGN484MCGGWXWHVV2UJP&contentType=json&lang=ru",
         );
         forecasts = res.data.days.slice(0, 7); // Update this line as per actual data structure
         updateForecastDisplay();
