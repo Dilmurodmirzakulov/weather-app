@@ -1,13 +1,9 @@
 (function ($, document, window) {
   $(document).ready(function () {
-    const forecastContainer = $(".forecast-container");
     const todayForecast = $(".today.forecast");
     const forecastHeader = todayForecast.find(".forecast-header");
     const forecastContent = todayForecast.find(".forecast-content");
     const headerText = $(".w-header-text");
-    console.log("todayForecast", todayForecast);
-    console.log("forecastHeader", forecastHeader);
-    console.log("forecastContent", forecastContent);
 
     function formatDate(inputDate) {
       const date = new Date(inputDate);
@@ -33,15 +29,7 @@
       const { DateTime } = luxon;
       let today = DateTime.now().setZone("Europe/Minsk").toFormat("yyyy-MM-dd");
 
-      // Format to ISO string and split to get the date part
-      // today.toISOString().split("T")[0];
-      // const today = new Date().toISOString().split("T")[0];
-      console.log("forecast.datetime", forecast.datetime);
-      console.log("today", today);
       forecast.isToday = forecast.datetime === today;
-      const forecastClass = forecast.isToday ? "today forecast" : "forecast";
-      // const iconPath = `images/icons/${forecast.icon}`;
-      const degreeHTML = `<div class="degree">${forecast.temp}<sup>o</sup>C</div>`;
       const weekDay = getWeekDay(forecast.datetime);
       return forecast.isToday
         ? `<div class="today forecast">
@@ -191,10 +179,9 @@
     async function fetchWeatherData() {
       try {
         let res = await axios.get(
-          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/minsk?unitGroup=metric&key=HKQEKXGN484MCGGWXWHVV2UJP&contentType=json&lang=ru",
+          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?unitGroup=metric&key=HKQEKXGN484MCGGWXWHVV2UJP&contentType=json&lang=ru",
         );
         forecasts = res.data.days.slice(0, 7); // Update this line as per actual data structure
-        console.log("forecasts", forecasts);
         updateForecastDisplay();
         displayWeatherData(res.data);
         showForecastChart();
@@ -211,24 +198,6 @@
     $(".menu-toggle").click(function () {
       $(".mobile-navigation").slideToggle();
     });
-
-    // var map = $(".map");
-    // var latitude = map.data("latitude");
-    // var longitude = map.data("longitude");
-    // if (map.length) {
-    //   map.gmap3({
-    //     map: {
-    //       options: {
-    //         center: [latitude, longitude],
-    //         zoom: 15,
-    //         scrollwheel: false,
-    //       },
-    //     },
-    //     marker: {
-    //       latLng: [latitude, longitude],
-    //     },
-    //   });
-    // }
   });
 
   $(window).load(function () {});
